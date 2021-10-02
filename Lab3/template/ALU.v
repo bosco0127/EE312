@@ -2,17 +2,17 @@
 
 module ALU(A,B,OP,C,Cout);
 
-	input [15:0]A;
-	input [15:0]B;
+	input [31:0]A;
+	input [31:0]B;
 	input [3:0]OP;
-	output [15:0]C;
+	output [31:0]C;
 	output Cout;
 
 	//TODO
-	reg [15:0] C;
+	reg [31:0] C;
 	reg Cout=0;
-	reg [16:0] temp1;
-	reg [15:0]	temp2;
+	reg [32:0] temp1;
+	reg [31:0] temp2;
 
 	always @* begin
 		case (OP)
@@ -20,14 +20,14 @@ module ALU(A,B,OP,C,Cout);
 		4'b0000 : begin
 			C = A + B;
 			temp1 = {1'b0,A} + {1'b0,B};
-			temp2 = {1'b0,A[14:0]} + {1'b0,B[14:0]};
-			Cout = temp1[16] ^ temp2[15];
+			temp2 = {1'b0,A[30:0]} + {1'b0,B[30:0]};
+			Cout = temp1[32] ^ temp2[31];
 		end
 		4'b0001 : begin
 			C = A - B;
 			temp1 = {1'b0,A} - {1'b0,B};
-			temp2 = {1'b0,A[14:0]} - {1'b0,B[14:0]};
-			Cout = temp1[16] ^ temp2[15];			
+			temp2 = {1'b0,A[30:0]} - {1'b0,B[30:0]};
+			Cout = temp1[32] ^ temp2[31];			
 		end
 		// Bitwise Boolean operation
 		4'b0010 : C = A & B;
